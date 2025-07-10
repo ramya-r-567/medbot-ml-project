@@ -126,7 +126,33 @@ else:
         st.success(solutions[predicted_disease])
     else:
         st.warning("No solution available for this disease yet.")
-        
+
+
+from streamlit_webrtc import webrtc_streamer, AudioProcessorBase
+import speech_recognition as sr
+import av
+
+class AudioProcessor(AudioProcessorBase):
+    def __init__(self) -> None:
+        self.recognizer = sr.Recognizer()
+        self.text_output = ""
+
+    def recv(self, frame: av.AudioFrame) -> av.AudioFrame:
+        audio_data = frame.to_ndarray()
+        return frame  # We'll extend this later for live transcription
+
+st.subheader("🎙️ Voice Input (Beta)")
+
+webrtc_ctx = webrtc_streamer(
+    key="speech",
+    mode="SENDRECV",
+    audio_receiver_size=1024,
+    client_settings={"media_stream_constraints": {"audio": True, "video": False}},
+    async_processing=True,
+)
+
+# Placeholder for future transcription (we’ll do this step-by-step)
+
 
 
 # Footer
