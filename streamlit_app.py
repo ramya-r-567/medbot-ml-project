@@ -107,17 +107,27 @@ st.write("\n")
 user_input = st.text_input("Describe your symptoms in natural language (e.g., 'I have fever and headache'):", key="user_input")
 
 # Predict on pressing enter
-if user_input:
-    predicted_disease = predict_disease(user_input)
-    st.subheader("🤖 Predicted Disease:")
-    st.success(predicted_disease)
+if user_input.strip() == "":
+    st.info("📝 Please enter your symptoms to get a prediction.")
+else:
+    #Translate input to english if needed
+    translated_input = translate_to_english(user_input)
 
-    # Display suggested solution
-    if predicted_disease in solutions:
+    if translated_input.strip().lower() != user_input.strip().lower():
+        st.info(f"🔤 Translated Input (to English): {translated_input}")
+
+    predicted_disease = predict_disease(translated_input)
+
+    st.subheader("😷 Predicted Disease:")
+    st.success(predicted_disease:")
+    
+    if predicted_disease in solution:
         st.subheader("💡 Suggested Solution:")
         st.success(solutions[predicted_disease])
     else:
-        st.info("No solution available for this disease yet.")
+        st.warning("No solution available for this disease yet.")
+        
+
 
 # Footer
 st.markdown("---")
