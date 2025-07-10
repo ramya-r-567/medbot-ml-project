@@ -119,7 +119,7 @@ else:
     predicted_disease = predict_disease(translated_input)
 
     st.subheader("😷 Predicted Disease:")
-    st.success(predicted_disease:")
+    st.success(predicted_disease)
     
     if predicted_disease in solution:
         st.subheader("💡 Suggested Solution:")
