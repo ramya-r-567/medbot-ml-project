@@ -4,9 +4,6 @@ import numpy as np
 import re
 from sklearn.feature_extraction.text import CountVectorizer
 from deep_translator import GoogleTranslator
-import streamlit as st
-from streamlit_webrtc import webrtc_streamer
-
 
 
 # Load model and symptoms
@@ -131,18 +128,5 @@ else:
         st.warning("No solution available for this disease yet.")
 
 
-webrtc_ctx = webrtc_streamer(
-    key="speech",
-    mode="SENDRECV",
-    client_settings={
-        "media_stream_constraints": {
-            "audio": True,
-            "video": False
-        },
-        "rtc_configuration": {
-            "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-        },
-    },
-    async_processing=True,
-)
+
 
