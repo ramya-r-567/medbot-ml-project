@@ -121,8 +121,8 @@ else:
     st.subheader("😷 Predicted Disease:")
     st.success(predicted_disease)
     
-    if predicted_disease in solution:
-        st.subheader("💡 Suggested Solution:")
+    if predicted_disease in solutions:
+        st.subheader("💡 Suggested Solutions:")
         st.success(solutions[predicted_disease])
     else:
         st.warning("No solution available for this disease yet.")
