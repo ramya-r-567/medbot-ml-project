@@ -129,9 +129,6 @@ else:
 
 
 from streamlit_webrtc import webrtc_streamer
-import streamlit as st
-
-st.subheader("🎙️ Voice Input (Beta)")
 
 webrtc_ctx = webrtc_streamer(
     key="speech",
@@ -147,5 +144,3 @@ webrtc_ctx = webrtc_streamer(
     },
     async_processing=True,
 )
-
-st.info("🎤 Voice input is enabled, but transcription is under development.")
