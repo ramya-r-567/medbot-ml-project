@@ -46,7 +46,8 @@ solutions = {
     "Urinary tract infection": "😷 Maintain healthy hygiene. 🧂 Drink Fluids More Often.🫚 Consume garlic and garlic supplements.",
     "Psoriasis": " Prevent dry skin. 🙇‍♂️Reduce stress. 🥗 Eat a well-balanced diet.",
     "(vertigo) Paroymsal  Positional Vertigo": "💧Stay Hydrated. Stress Management. Improve Vitamin D Supplementation.",
-    "Acne": "Apply  Apple Cider Vinegar. Take Zinc Supplements."
+    "Acne": "Apply  Apple Cider Vinegar. Take Zinc Supplements.",
+    "Diabetes": "🥗 Eat healthy. 🏃 Exercise regularly. 🩺 Visit an endocrinologist."
     # Add more if needed
 }
 
