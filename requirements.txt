@@ -5,6 +5,6 @@ scikit-learn
 deep-translator
 streamlit
 streamlit-webrtc
-speechrecognition
+
 
 
