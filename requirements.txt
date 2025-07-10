@@ -3,4 +3,7 @@ joblib
 numpy
 scikit-learn
 deep-translator
+streamlit-webrtc
+speechrecognition
+pyaudio ; platform_system == "Windows"
 
