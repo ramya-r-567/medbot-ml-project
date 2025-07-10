@@ -18,7 +18,13 @@ solutions = {
     "Diabetes": "🥗 Eat healthy. 🏃 Exercise regularly. 🩺 Visit an endocrinologist.",
     "Hypertension": "🧘‍♀️ Reduce salt. 🏃‍♂️ Exercise daily. Take prescribed meds.",
     "Migraine": "💆‍♀️ Rest in a dark room. Take migraine meds.",
-    "Chickenpox": "🛏️ Rest. Calamine lotion for itching. Stay hydrated."
+    "Chickenpox": "🛏️ Rest. Calamine lotion for itching. Stay hydrated.",
+    "AIDS": "🧑‍⚕️ Take a Prescribed ART(antiretroviral therapy).",
+    "Jaundice": "💧Stay Hydrated. 🥗 Dietary Adjustment. 🛏️Take rest.",
+    "Malaria": "🧑‍⚕️ Consult Doctor Immediately.",
+    "Dengue": "💧Stay Hydrated.🛏️ Take Plenty of Rest.",
+    "Typhoid": "Take Antibiotics Prescribed by Doctor 🧑‍⚕️.",
+    "Common Cold": "🛏️ Rest.💧Stay Hydrated. Gargling With Warm Water."
     # Add more if needed
 }
 
