@@ -3,8 +3,7 @@ joblib
 numpy
 scikit-learn
 deep-translator
-streamlit-webrtc
-speechrecognition
+
 
 
 
