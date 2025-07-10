@@ -24,7 +24,29 @@ solutions = {
     "Malaria": "🧑‍⚕️ Consult Doctor Immediately.",
     "Dengue": "💧Stay Hydrated.🛏️ Take Plenty of Rest.",
     "Typhoid": "Take Antibiotics Prescribed by Doctor 🧑‍⚕️.",
-    "Common Cold": "🛏️ Rest.💧Stay Hydrated. Gargling With Warm Water."
+    "Common Cold": "🛏️ Rest.💧Stay Hydrated. Gargling With Warm Water.",
+    "Chronic cholestasis": " 🧑‍⚕️Consult Your Doctor. Check Your levels of cholesterol and certain liver enzymes.",
+    "Peptic ulcer diseae": "📉 Lower Your Stomach Acid Levels.🍴 Adjust Your Meal Plan.",
+    "Gastroenteritis": "🧂 Drink Fluids More Often. 😷 Stay Hygiene.",
+    "Bronchial Asthma": "😷 Stay Hygiene and Away From Dust.",
+    "Cervical spondylosis": "🏃‍♂️ Regular Exercise.  💆 Massage Your Neck. 🫚 Try Ginger for Relief.",
+    "Paralysis (brain hemorrhage)": " 🚨Medical Emergency. Immediately Take Treatment.",
+    "Jaundice": "🏃‍♂️ Exercise daily. 🥗 Healthy Diet. ❌Avoid Alcohol.",
+    "hepatitis A": "🛏️ Get lots of rest. 💊Take pain relieving medication with caution.",
+    "Hepatitis B": "Discuss your treatment options with your doctor 🧑‍⚕️.",
+    "Hepatitis C": "🥗 Eat a well-balanced diet. 🏃 Exercise regularly. 🧪 Get tested for HIV and hepatitis B.",
+    "Hepatitis D": "🧑‍⚕️ Talk to your doctor before taking prescription drugs or nutritional supplements. 🥗 Eat a well-balanced diet. 🏃 Exercise regularly.",
+    "Hepatitis E": "🛏️ Rest. 🥗 Eat healthy.🧂Drink lots of water. Avoid alcohol.",
+    "Tuberculosis": "🔆 Get Some Sunshine. ⚡Get Enough B-Vitamins And Iron.🥛 Drink Milk.",
+    "Pneumonia": "🍵 Drink hot peppermint tea. 💊 Take an over-the-counter pain reliever. 💧Stay Hydrated.",
+    "Dimorphic hemmorhoids(piles)": "❄️ Cold Compress. 🏃 Exercise. 🥗 Fibre-Rich Diet. 💧Stay Hydrated.",
+    "Hyperthyroidism": "Stress Management. 🏃 Exercise regularly. 🛏️ Rest.",
+    "Hypoglycemia": "🍣 Protein Snacks. Limit Refined Sugars. 🛏️ Adequate Sleep.",
+    "Arthritis": "Manage your weight. 🪡Try acupuncture. 🥗Follow a healthy diet.",
+    "Urinary tract infection": "😷 Maintain healthy hygiene. 🧂 Drink Fluids More Often.🫚 Consume garlic and garlic supplements.",
+    "Psoriasis": " Prevent dry skin. 🙇‍♂️Reduce stress. 🥗 Eat a well-balanced diet.",
+    "(vertigo) Paroymsal  Positional Vertigo": "💧Stay Hydrated. Stress Management. Improve Vitamin D Supplementation.",
+    "Acne": "Apply  Apple Cider Vinegar. Take Zinc Supplements."
     # Add more if needed
 }
 
