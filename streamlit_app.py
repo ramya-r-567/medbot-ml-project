@@ -130,4 +130,25 @@ else:
 
 
 
+# List of supported languages
+language_options = {
+    "English": "en",
+    "Hindi": "hi",
+    "Tamil": "ta",
+    "Telugu": "te",
+    "Kannada": "kn",
+    "Malayalam": "ml",
+    "French": "fr",
+    "Italy": "it",
+    "Korean": "kr",
+    "Chinese": "ch",
+}
+
+# User selects language
+selected_lang = st.selectbox("🌐 Choose your language:", list(language_options.keys()))
+lang_code = language_options[selected_lang]
+
+
+
+
 
