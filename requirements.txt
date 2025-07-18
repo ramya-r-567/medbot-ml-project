@@ -1,8 +1,10 @@
 streamlit
+deep_transaltor
+scikit-learn==1.6.1
+streamlit==1.27.2
+googletrans==4.0.0-rc1
 joblib
-numpy
-scikit-learn
-deep-translator
+
 
 
 
