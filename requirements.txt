@@ -1,9 +1,9 @@
-streamlit==1.35.0
+streamlit
+numpy
+joblib
 pandas
 scikit-learn
 deep-translator
-gtts
-playsound==1.2.2
 
 
 
