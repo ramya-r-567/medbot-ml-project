@@ -1,10 +1,9 @@
-streamlit
-deep_transaltor
-scikit-learn==1.6.1
-streamlit==1.27.2
-googletrans==4.0.0-rc1
-joblib
-
+streamlit==1.35.0
+pandas
+scikit-learn
+deep-translator
+gtts
+playsound==1.2.2
 
 
 
