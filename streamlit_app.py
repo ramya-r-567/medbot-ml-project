@@ -5,7 +5,6 @@ import re
 from sklearn.feature_extraction.text import CountVectorizer
 from deep_translator import GoogleTranslator
 
-
 # Load model and symptoms
 model = joblib.load("medbot_model.pkl")
 symptoms = joblib.load("symptom_list.pkl")
@@ -25,109 +24,104 @@ solutions = {
     "Dengue": "💧Stay Hydrated.🛏️ Take Plenty of Rest.",
     "Typhoid": "Take Antibiotics Prescribed by Doctor 🧑‍⚕️.",
     "Common Cold": "🛏️ Rest.💧Stay Hydrated. Gargling With Warm Water.",
-    "Chronic cholestasis": " 🧑‍⚕️Consult Your Doctor. Check Your levels of cholesterol and certain liver enzymes.",
+    "Chronic cholestasis": "🧑‍⚕️ Consult Your Doctor. Check Your cholesterol & liver enzyme levels.",
     "Peptic ulcer diseae": "📉 Lower Your Stomach Acid Levels.🍴 Adjust Your Meal Plan.",
-    "Gastroenteritis": "🧂 Drink Fluids More Often. 😷 Stay Hygiene.",
-    "Bronchial Asthma": "😷 Stay Hygiene and Away From Dust.",
-    "Cervical spondylosis": "🏃‍♂️ Regular Exercise.  💆 Massage Your Neck. 🫚 Try Ginger for Relief.",
-    "Paralysis (brain hemorrhage)": " 🚨Medical Emergency. Immediately Take Treatment.",
-    "Jaundice": "🏃‍♂️ Exercise daily. 🥗 Healthy Diet. ❌Avoid Alcohol.",
-    "hepatitis A": "🛏️ Get lots of rest. 💊Take pain relieving medication with caution.",
-    "Hepatitis B": "Discuss your treatment options with your doctor 🧑‍⚕️.",
-    "Hepatitis C": "🥗 Eat a well-balanced diet. 🏃 Exercise regularly. 🧪 Get tested for HIV and hepatitis B.",
-    "Hepatitis D": "🧑‍⚕️ Talk to your doctor before taking prescription drugs or nutritional supplements. 🥗 Eat a well-balanced diet. 🏃 Exercise regularly.",
-    "Hepatitis E": "🛏️ Rest. 🥗 Eat healthy.🧂Drink lots of water. Avoid alcohol.",
-    "Tuberculosis": "🔆 Get Some Sunshine. ⚡Get Enough B-Vitamins And Iron.🥛 Drink Milk.",
-    "Pneumonia": "🍵 Drink hot peppermint tea. 💊 Take an over-the-counter pain reliever. 💧Stay Hydrated.",
-    "Dimorphic hemmorhoids(piles)": "❄️ Cold Compress. 🏃 Exercise. 🥗 Fibre-Rich Diet. 💧Stay Hydrated.",
-    "Hyperthyroidism": "Stress Management. 🏃 Exercise regularly. 🛏️ Rest.",
-    "Hypoglycemia": "🍣 Protein Snacks. Limit Refined Sugars. 🛏️ Adequate Sleep.",
-    "Arthritis": "Manage your weight. 🪡Try acupuncture. 🥗Follow a healthy diet.",
-    "Urinary tract infection": "😷 Maintain healthy hygiene. 🧂 Drink Fluids More Often.🫚 Consume garlic and garlic supplements.",
-    "Psoriasis": " Prevent dry skin. 🙇‍♂️Reduce stress. 🥗 Eat a well-balanced diet.",
-    "(vertigo) Paroymsal  Positional Vertigo": "💧Stay Hydrated. Stress Management. Improve Vitamin D Supplementation.",
-    "Acne": "Apply  Apple Cider Vinegar. Take Zinc Supplements.",
-    "Diabetes": "🥗 Eat healthy. 🏃 Exercise regularly. 🩺 Visit an endocrinologist."
-    # Add more if needed
+    "Gastroenteritis": "🧂 Drink Fluids More Often. 😷 Stay Hygienic.",
+    "Bronchial Asthma": "😷 Stay Hygienic and Avoid Dust.",
+    "Cervical spondylosis": "🏃‍♂️ Exercise Regularly. 💆 Massage Your Neck. 🫚 Try Ginger for Relief.",
+    "Paralysis (brain hemorrhage)": "🚨 Medical Emergency. Seek Immediate Treatment.",
+    "hepatitis A": "🛏️ Get lots of rest. 💊 Take pain relievers carefully.",
+    "Hepatitis B": "Discuss treatment options with your doctor 🧑‍⚕️.",
+    "Hepatitis C": "🥗 Eat a balanced diet. 🏃 Exercise. 🧪 Get tested.",
+    "Hepatitis D": "🧑‍⚕️ Consult before taking medications. 🥗 Eat well. 🏃 Exercise.",
+    "Hepatitis E": "🛏️ Rest. 🥗 Eat healthy. 🧂 Hydrate. ❌ Avoid alcohol.",
+    "Tuberculosis": "🔆 Get sunlight. ⚡ Take B-vitamins & iron. 🥛 Drink milk.",
+    "Pneumonia": "🍵 Drink hot tea. 💊 Pain relief. 💧 Hydrate.",
+    "Dimorphic hemmorhoids(piles)": "❄️ Cold Compress. 🏃 Exercise. 🥗 High Fiber Diet. 💧Hydrate.",
+    "Hyperthyroidism": "🧘 Stress Management. 🏃 Exercise. 🛏️ Rest.",
+    "Hypoglycemia": "🍣 Protein Snacks. Limit Sugar. 🛏️ Sleep Well.",
+    "Arthritis": "⚖️ Manage weight. 🪡 Acupuncture. 🥗 Healthy diet.",
+    "Urinary tract infection": "😷 Hygiene. 🧂 Hydration. 🫚 Garlic intake.",
+    "Psoriasis": "🧴 Prevent dryness. 🙇‍♂️ Reduce stress. 🥗 Eat balanced meals.",
+    "(vertigo) Paroymsal  Positional Vertigo": "💧Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
+    "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements."
 }
 
-# Set up vectorizer to process free text input
 vectorizer = CountVectorizer(vocabulary=symptoms)
 
 def preprocess_input(text):
-    # Clean and lowercase the text
     text = re.sub(r"[^a-zA-Z ]", "", text)
-    text = text.lower()
-    return text
+    return text.lower()
+
+def translate(text, src_lang, tgt_lang):
+    return GoogleTranslator(source=src_lang, target=tgt_lang).translate(text)
+
+def predict_disease(user_input, selected_lang):
+    translated_input = translate(user_input, 'auto', 'en')  # Auto-detect source language
+    cleaned = preprocess_input(translated_input)
+    vector = vectorizer.transform([cleaned]).toarray()
+    prediction = model.predict(vector)[0]
+    return prediction
 
 
-def translate_to_english(text):
-    translated = GoogleTranslator(source='auto', target='en').translate(text)
-    return translated
-
-
-def predict_disease(user_input):
-    # Translate input first
-    translated_input = translate_to_english(user_input)
-    cleaned_text = preprocess_input(translated_input)
-
-    # Optional: show translated input
-    st.write("🔤 Translated Input (to English):", translated_input)
-
-    vector = vectorizer.transform([cleaned_text]).toarray()
-    prediction = model.predict(vector)
-    return prediction[0]
-
-# Streamlit UI starts here
+# Streamlit UI Config
 st.set_page_config(page_title="MedBot AI", page_icon="💊", layout="centered")
 
-# Background color using HTML/CSS
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #e6f2ff;
-        font-family: 'Trebuchet MS', sans-serif;
-    }
-    .title {
-        color: #004d99;
-        font-size: 42px;
-        font-weight: bold;
-        text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# Language Selection
+language_map = {
+    "English": "en",
+    "தமிழ் (Tamil)": "ta",
+    "हिन्दी (Hindi)": "hi",
+    "తెలుగు (Telugu)": "te",
+    "ಕನ್ನಡ (Kannada)": "kn",
+    "മലയാളം (Malayalam)": "ml",
+    "বাংলা (Bengali)": "bn"
+}
 
-# App title
-st.markdown("<div class='title'>🤖 MedBot AI – Your Symptom Checker</div>", unsafe_allow_html=True)
-st.write("\n")
+selected_lang_label = st.selectbox("🌐 Select Language / மொழியை தேர்ந்தெடுக்கவும்:", list(language_map.keys()))
+selected_lang = language_map[selected_lang_label]
 
-# User input for symptoms
-user_input = st.text_input("Describe your symptoms in natural language (e.g., 'I have fever and headache'):", key="user_input")
+# Translated Titles
+title = translate("🤖 MedBot AI – Your Symptom Checker", "en", selected_lang)
+symptom_label = translate("Describe your symptoms in any language:", "en", selected_lang)
+predicted_disease_label = translate("😷 Predicted Disease:", "en", selected_lang)
+suggested_solution_label = translate("💡 Suggested Solution:", "en", selected_lang)
+empty_input_info = translate("📝 Please enter your symptoms to get a prediction.", "en", selected_lang)
+no_solution_text = translate("No solution available for this disease yet.", "en", selected_lang)
 
-# Predict on pressing enter
-if user_input.strip() == "":
-    st.info("📝 Please enter your symptoms to get a prediction.")
-else:
-    #Translate input to english if needed
-    translated_input = translate_to_english(user_input)
+# Page Style and Title
+st.markdown("""
+<style>
+.stApp {
+    background-color: #e6f2ff;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+.title {
+    color: #004d99;
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+}
+</style>
+""", unsafe_allow_html=True)
 
-    if translated_input.strip().lower() != user_input.strip().lower():
-        st.info(f"🔤 Translated Input (to English): {translated_input}")
+st.markdown(f"<div class='title'>{title}</div>", unsafe_allow_html=True)
+st.write("")
 
-    predicted_disease = predict_disease(translated_input)
+# User Input
+user_input = st.text_input(symptom_label, key="user_input")
 
-    st.subheader("😷 Predicted Disease:")
-    st.success(predicted_disease)
-    
-    if predicted_disease in solutions:
-        st.subheader("💡 Suggested Solutions:")
-        st.success(solutions[predicted_disease])
+# Prediction
+if user_input.strip():
+    prediction = predict_disease(user_input)
+    st.subheader(predicted_disease_label)
+    st.success(translate(prediction, 'en', selected_lang))
+
+    if prediction in solutions:
+        st.subheader(suggested_solution_label)
+        st.success(translate(solutions[prediction], 'en', selected_lang))
     else:
-        st.warning("No solution available for this disease yet.")
-
-
-
+        st.warning(no_solution_text)
+else:
+    st.info(empty_input_info)
 
