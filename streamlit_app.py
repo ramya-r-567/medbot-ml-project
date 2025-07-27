@@ -1,13 +1,81 @@
 import streamlit as st
+import base64
 import joblib
 import numpy as np
 import re
 from sklearn.feature_extraction.text import CountVectorizer
 from deep_translator import GoogleTranslator
 
+
 # Load model and symptoms
 model = joblib.load("medbot_model.pkl")
 symptoms = joblib.load("symptom_list.pkl")
+
+# CSS styling
+st.markdown("""
+<style>
+body {
+    background-color: #cce5ff;  /* Light blue solid background */
+    background-image: none;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.stApp {
+    background: transparent;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.floating-icon {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.floating-icon:nth-child(1) { top: 10%; left: 5%; }
+.floating-icon:nth-child(2) { top: 30%; right: 10%; }
+.floating-icon:nth-child(3) { bottom: 20%; left: 15%; }
+.floating-icon:nth-child(4) { bottom: 10%; right: 5%; }
+.floating-icon:nth-child(5) { top: 50%; left: 50%; }
+
+.glass-box {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    margin-top: 20px;
+    color: #ffffff;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Floating icons
+st.markdown("""
+<img src="https://img.icons8.com/ios-filled/100/heart-with-pulse.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/stethoscope.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/pill.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/medical-doctor.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/heart-with-pulse.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/stethoscope.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/pill.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/medical-doctor.png" class="floating-icon">
+""", unsafe_allow_html=True)
 
 # Dictionary mapping diseases to simple solutions
 solutions = {
@@ -57,15 +125,14 @@ def translate(text, src_lang, tgt_lang):
     return GoogleTranslator(source=src_lang, target=tgt_lang).translate(text)
 
 def predict_disease(user_input, selected_lang):
-    translated_input = translate(user_input, 'auto', 'en')  # Auto-detect source language
-    cleaned = preprocess_input(translated_input)
-    vector = vectorizer.transform([cleaned]).toarray()
-    prediction = model.predict(vector)[0]
-    return prediction
-
-
-# Streamlit UI Config
-st.set_page_config(page_title="MedBot AI", page_icon="💊", layout="centered")
+    try:
+        translated_input = translate(user_input, 'auto', 'en')
+        cleaned = preprocess_input(translated_input)
+        vector = vectorizer.transform([cleaned]).toarray()
+        prediction = model.predict(vector)[0]
+        return prediction
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 # Language Selection
 language_map = {
@@ -78,50 +145,52 @@ language_map = {
     "বাংলা (Bengali)": "bn"
 }
 
+# Streamlit UI Config
+st.set_page_config(page_title="MedBot AI", page_icon="💊", layout="centered")
+
+
+#🌐Language Selector
 selected_lang_label = st.selectbox("🌐 Select Language / மொழியை தேர்ந்தெடுக்கவும்:", list(language_map.keys()))
 selected_lang = language_map[selected_lang_label]
 
-# Translated Titles
-title = translate("🤖 MedBot AI – Your Symptom Checker", "en", selected_lang)
+
+# Translated UI Texts
+title = translate("🩺 MedBot AI – Your Symptom Checker", "en", selected_lang)
 symptom_label = translate("Describe your symptoms in any language:", "en", selected_lang)
 predicted_disease_label = translate("😷 Predicted Disease:", "en", selected_lang)
 suggested_solution_label = translate("💡 Suggested Solution:", "en", selected_lang)
 empty_input_info = translate("📝 Please enter your symptoms to get a prediction.", "en", selected_lang)
 no_solution_text = translate("No solution available for this disease yet.", "en", selected_lang)
 
-# Page Style and Title
-st.markdown("""
-<style>
-.stApp {
-    background-color: #e6f2ff;
-    font-family: 'Trebuchet MS', sans-serif;
-}
-.title {
-    color: #004d99;
-    font-size: 42px;
-    font-weight: bold;
-    text-align: center;
-}
-</style>
+# Title
+st.markdown(f"""
+<h1>{title}</h1>
 """, unsafe_allow_html=True)
 
-st.markdown(f"<div class='title'>{title}</div>", unsafe_allow_html=True)
-st.write("")
+# User input box
+user_input = st.text_area("Describe your symptoms:", height=150)
 
-# User Input
-user_input = st.text_input(symptom_label, key="user_input")
 
-# Prediction
+# Prediction Section
 if user_input.strip():
-    prediction = predict_disease(user_input)
-    st.subheader(predicted_disease_label)
-    st.success(translate(prediction, 'en', selected_lang))
+    prediction = predict_disease(user_input, selected_lang)
 
-    if prediction in solutions:
-        st.subheader(suggested_solution_label)
-        st.success(translate(solutions[prediction], 'en', selected_lang))
+    st.markdown("<div class='glass-box'>", unsafe_allow_html=True)
+
+    if prediction.startswith("Error:"):
+        st.error(prediction)
     else:
-        st.warning(no_solution_text)
-else:
-    st.info(empty_input_info)
+        st.subheader(predicted_disease_label)
+        st.success(translate(prediction, 'en', selected_lang))
 
+        if prediction in solutions:
+            st.subheader(suggested_solution_label)
+            st.success(translate(solutions[prediction], 'en', selected_lang))
+        else:
+            st.warning(no_solution_text)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+else:
+    st.markdown("<div class= 'glass-box'>", unsafe_allow_html=True)
+    st.info(empty_input_info)
+    st.markdown("</div>", unsafe_allow_html=True)

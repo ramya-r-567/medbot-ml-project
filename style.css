@@ -1,0 +1,68 @@
+/* Set entire background gradient */
+html, body, .stApp {
+    background: linear-gradient(to right, #cceeff, #e0f7ff) !important;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Floating icons */
+.floating-icon {
+    position: fixed;
+    width: 100px;
+    opacity: 0.05;
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+}
+.floating-icon:nth-child(1) { top: 10%; left: 5%; }
+.floating-icon:nth-child(2) { top: 30%; right: 5%; }
+.floating-icon:nth-child(3) { bottom: 10%; left: 40%; }
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Glassmorphism cards */
+.glass-box {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    margin-bottom: 1.5rem;
+}
+
+/* Title Styling */
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #004d66;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Remove extra space above and below input box */
+textarea {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* This makes all input sections tighter */
+.css-1y4p8pa {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin: 0px !important;
+}
+/* Reduce space below success box */
+.css-ffhzg2 {
+    margin-bottom: 0 !important;
+}
