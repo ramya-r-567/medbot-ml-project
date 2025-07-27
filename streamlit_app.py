@@ -37,7 +37,7 @@ h1 {
 }
 
 .floating-icon {
-    position: fixed;
+    position: floating;
     width: 50px;
     height: 50px;
     opacity: 0.1;
@@ -70,11 +70,6 @@ st.markdown("""
 <img src="https://img.icons8.com/ios-filled/100/pill.png" class="floating-icon">
 <img src="https://img.icons8.com/ios-filled/100/medical-doctor.png" class="floating-icon">
 <img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/heart-with-pulse.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/stethoscope.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/pill.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/medical-doctor.png" class="floating-icon">
 """, unsafe_allow_html=True)
 
 # Dictionary mapping diseases to simple solutions
@@ -168,12 +163,12 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # User input box
-user_input = st.text_area("Describe your symptoms:", height=150)
+user_input = st.text_area("Describe your symptoms:", height=100)
 
 
 # Prediction
 if user_input.strip():
-    prediction = predict_disease(user_input)
+    prediction = predict_disease(user_input, select_lang)
     st.subheader(predicted_disease_label)
     st.success(translate(prediction, 'en', selected_lang))
 
