@@ -3,7 +3,8 @@ import joblib
 import numpy as np
 import re
 from sklearn.feature_extraction.text import CountVectorizer
-from deep-translator import GoogleTranslator
+from deep_translator import GoogleTranslator
+
 
 # Load model and symptoms
 model = joblib.load("medbot_model.pkl")
