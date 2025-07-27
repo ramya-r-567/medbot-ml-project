@@ -168,7 +168,7 @@ user_input = st.text_area("Describe your symptoms:", height=100)
 
 # Prediction
 if user_input.strip():
-    prediction = predict_disease(user_input, select_lang)
+    prediction = predict_disease(user_input, selected_lang)
     st.subheader(predicted_disease_label)
     st.success(translate(prediction, 'en', selected_lang))
 
