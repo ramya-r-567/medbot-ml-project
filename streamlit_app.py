@@ -37,7 +37,7 @@ h1 {
 }
 
 .floating-icon {
-    position: floating;
+    position: fixed;
     width: 50px;
     height: 50px;
     opacity: 0.1;
