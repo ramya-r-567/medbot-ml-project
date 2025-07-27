@@ -1,12 +1,14 @@
 import streamlit as st
-import pickle 
+import joblib
+import numpy as np
+import re
+from sklearn.feature_extraction.text import CountVectorizer
 from deep_translator import GoogleTranslator
 
 
-
 # Load model and symptoms
-model = pickle.load(open("medbot_model.pkl", "rb"))
-symptoms = pickle.load(open("symptom_list.pkl", "rb"))
+model = joblib.load("medbot_model.pkl")
+symptoms = joblib.load("symptom_list.pkl")
 
 # Dictionary mapping diseases to simple solutions
 solutions = {
@@ -49,62 +51,82 @@ solutions = {
     # Add more if needed
 }
 
-#list of supported languages
-language_options = {
-    "English": "en",
-    "Hindi": "hi",
-    "Tamil": "ta",
-    "Telugu": "te",
-    "Kannada": "kn"
+# Set up vectorizer to process free text input
+vectorizer = CountVectorizer(vocabulary=symptoms)
+
+def preprocess_input(text):
+    # Clean and lowercase the text
+    text = re.sub(r"[^a-zA-Z ]", "", text)
+    text = text.lower()
+    return text
+
+
+def translate_to_english(text):
+    translated = GoogleTranslator(source='auto', target='en').translate(text)
+    return translated
+
+
+def predict_disease(user_input):
+    # Translate input first
+    translated_input = translate_to_english(user_input)
+    cleaned_text = preprocess_input(translated_input)
+
+    # Optional: show translated input
+    st.write("🔤 Translated Input (to English):", translated_input)
+
+    vector = vectorizer.transform([cleaned_text]).toarray()
+    prediction = model.predict(vector)
+    return prediction[0]
+
+# Streamlit UI starts here
+st.set_page_config(page_title="MedBot AI", page_icon="💊", layout="centered")
+
+# Background color using HTML/CSS
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #e6f2ff;
+        font-family: 'Trebuchet MS', sans-serif;
+    }
+    .title {
+        color: #004d99;
+        font-size: 42px;
+        font-weight: bold;
+        text-align: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# App title
+st.markdown("<div class='title'>🤖 MedBot AI – Your Symptom Checker</div>", unsafe_allow_html=True)
+st.write("\n")
+
+# User input for symptoms
+user_input = st.text_input("Describe your symptoms in natural language (e.g., 'I have fever and headache'):", key="user_input")
+
+# Predict on pressing enter
+if user_input.strip() == "":
+    st.info("📝 Please enter your symptoms to get a prediction.")
+else:
+    #Translate input to english if needed
+    translated_input = translate_to_english(user_input)
+
+    if translated_input.strip().lower() != user_input.strip().lower():
+        st.info(f"🔤 Translated Input (to English): {translated_input}")
+
+    predicted_disease = predict_disease(translated_input)
+
+    st.subheader("😷 Predicted Disease:")
+    st.success(predicted_disease)
     
-}
-
-#streamlit UI
-st.set_page_config(page_title= "MedBot AI", layout="centered")
-st.title("🩺 MedBot - Your Symptoms Checker")
-
-#select language
-selected_language = st.selectbox("🌐 Choose Your Language:", list(language_options.keys()))
-target_lang = language_options[selected_language]
-
-#input symptoms
-user_input = st.text_input("📝 Enter Your Symptoms (comma separated):")
-
-#predict button
-if st.button("Predict Disease"):
-    if user_input:
-        #translate input to english if needed
-        if target_lang != "en":
-            translate_input = GoogleTransaltor(source= 'auto', target= 'en').translate(user_input)
-        else:
-            translated_input = user_input
-
-        #convert symptoms into input format for model
-        input_symptoms = [sym.strip().capitalize() for sym in translated_input.split(',')]
-        input_vector = [1 if symptom in input_symptoms else 0 for symptoms in symptom_list]
-
-        #predict
-        predicted_disease = model.predict([input_vector])[0]
-
-        #translate outputs if needed
-        if target_lang != "en":
-            translated_disease = GoogleTranslator(source= 'en', target=target_lang).translate(predicted_disease)
-            translated_solution = GoogleTranslator(source= 'en', target=target_lang).translate(solutions.get(predicted_disease, "No solution available for this disease yet.")
-            )
-        else:
-            translated_disease = predicted_disease
-            translated_solution = solutions.get(predicted_disease, "No solution available for this disease yet")
-
-        #display results
-        st.subheader("😷 Predicted Disease:")
-        st.success(translated_disease)
-
-        st.subheader("💡Suggested Solution:")
-        st.success(translated_solution)
-
+    if predicted_disease in solutions:
+        st.subheader("💡 Suggested Solutions:")
+        st.success(solutions[predicted_disease])
     else:
-        st.warning("Please enter your symptoms.")
-
+        st.warning("No solution available for this disease yet.")
 
 
 
