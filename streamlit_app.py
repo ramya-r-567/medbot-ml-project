@@ -5,7 +5,6 @@ import re
 from sklearn.feature_extraction.text import CountVectorizer
 from deep_translator import GoogleTranslator
 
-
 # Load model and symptoms
 model = joblib.load("medbot_model.pkl")
 symptoms = joblib.load("symptom_list.pkl")
@@ -58,12 +57,15 @@ def translate(text, src_lang, tgt_lang):
     return GoogleTranslator(source=src_lang, target=tgt_lang).translate(text)
 
 def predict_disease(user_input, selected_lang):
-    translated_input = translate(user_input, 'auto', 'en')  # Auto-detect source language
-    cleaned = preprocess_input(translated_input)
-    vector = vectorizer.transform([cleaned]).toarray()
-    prediction = model.predict(vector)[0]
-    return prediction
-
+    try:
+        # Translate input to English for model
+        translated_input = translate(user_input, 'auto', 'en')
+        cleaned = preprocess_input(translated_input)
+        vector = vectorizer.transform([cleaned]).toarray()
+        prediction = model.predict(vector)[0]
+        return prediction
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 # Streamlit UI Config
 st.set_page_config(page_title="MedBot AI", page_icon="💊", layout="centered")
@@ -82,7 +84,7 @@ language_map = {
 selected_lang_label = st.selectbox("🌐 Select Language / மொழியை தேர்ந்தெடுக்கவும்:", list(language_map.keys()))
 selected_lang = language_map[selected_lang_label]
 
-# Translated Titles
+# Translated UI Texts
 title = translate("🤖 MedBot AI – Your Symptom Checker", "en", selected_lang)
 symptom_label = translate("Describe your symptoms in any language:", "en", selected_lang)
 predicted_disease_label = translate("😷 Predicted Disease:", "en", selected_lang)
@@ -112,17 +114,22 @@ st.write("")
 # User Input
 user_input = st.text_input(symptom_label, key="user_input")
 
-# Prediction
+# Prediction Block (FIXED)
 if user_input.strip():
-    prediction = predict_disease(user_input)
-    st.subheader(predicted_disease_label)
-    st.success(translate(prediction, 'en', selected_lang))
+    prediction = predict_disease(user_input, selected_lang)
 
-    if prediction in solutions:
-        st.subheader(suggested_solution_label)
-        st.success(translate(solutions[prediction], 'en', selected_lang))
+    if prediction.startswith("Error:"):
+        st.error(prediction)
     else:
-        st.warning(no_solution_text)
+        st.subheader(predicted_disease_label)
+        st.success(translate(prediction, 'en', selected_lang))
+
+        if prediction in solutions:
+            st.subheader(suggested_solution_label)
+            st.success(translate(solutions[prediction], 'en', selected_lang))
+        else:
+            st.warning(no_solution_text)
 else:
     st.info(empty_input_info)
+
 
