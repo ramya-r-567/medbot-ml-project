@@ -70,6 +70,9 @@ st.markdown("""
 <img src="https://img.icons8.com/ios-filled/100/pill.png" class="floating-icon">
 <img src="https://img.icons8.com/ios-filled/100/medical-doctor.png" class="floating-icon">
 <img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/syringe.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/dna.png" class="floating-icon">
+<img src="https://img.icons8.com/ios-filled/100/thermometer.png" class="floating-icon">
 """, unsafe_allow_html=True)
 
 # Dictionary mapping diseases to simple solutions
