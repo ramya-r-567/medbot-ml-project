@@ -8,7 +8,7 @@ from deep_translator import GoogleTranslator
 
 
 # Load model and symptoms
-model = joblib.load("medbot_model.pkl")
+model = joblib.load("final_medbot_model.pkl")
 symptoms = joblib.load("symptom_list.pkl")
 
 # CSS styling
