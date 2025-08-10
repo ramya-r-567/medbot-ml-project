@@ -9,7 +9,7 @@ from deep_translator import GoogleTranslator
 
 # Load model and symptoms
 model = joblib.load("final_medbot_model.pkl")
-symptoms = joblib.load("symptom_list.pkl")
+symptoms = joblib.load("final_symptom_list.pkl")
 
 # CSS styling
 st.markdown("""
