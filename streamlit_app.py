@@ -182,6 +182,5 @@ if user_input.strip():
     else:
         st.warning(no_solution_text)
 else:
-    st.markdown("<div class= 'glass-box'>", unsafe_allow_html=True)
     st.info(empty_input_info)
 
