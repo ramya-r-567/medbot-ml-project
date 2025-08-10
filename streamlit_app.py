@@ -114,7 +114,8 @@ solutions = {
     "Primary Headache":"💧Stay Hydrated.🛏️Rest and Relaxation.🥦Dietary Considerations.🙇‍♂️ Reduce stress.",
     "Secondary Headache":"💊 Take prescribed pain reliviers.🌡️ Temperature Therapy(Cold Pack or Warm Compress).",
     "Cluster Headache":"🫁 Breathing Exercises.❄️ Cold Compress. Avoid Triggers.",
-    "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods." 
+    "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods.",
+    "Menstruation pain":"🌡️ Heating Therapy.💧Stay Hydrated. 🥗 Healthy diet."
 }
 
 vectorizer = CountVectorizer(vocabulary=symptoms)
