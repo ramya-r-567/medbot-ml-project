@@ -100,22 +100,22 @@ solutions = {
     "Hepatitis B": "Discuss treatment options with your doctor 🧑‍⚕️.",
     "Hepatitis C": "🥗 Eat a balanced diet. 🏃 Exercise. 🧪 Get tested.",
     "Hepatitis D": "🧑‍⚕️ Consult before taking medications. 🥗 Eat well. 🏃 Exercise.",
-    "Hepatitis E": "🛏️ Rest. 🥗 Eat healthy. 🧂 Hydrate. ❌ Avoid alcohol.",
+    "Hepatitis E": "🛏️ Rest. 🥗 Eat healthy. 🧂saty Hydrate. ❌ Avoid alcohol.",
     "Tuberculosis": "🔆 Get sunlight. ⚡ Take B-vitamins & iron. 🥛 Drink milk.",
     "Pneumonia": "🍵 Drink hot tea. 💊 Pain relief. 💧 Hydrate.",
-    "Dimorphic hemmorhoids(piles)": "❄️ Cold Compress. 🏃 Exercise. 🥗 High Fiber Diet. 💧Hydrate.",
+    "Dimorphic hemmorhoids(piles)": "❄️ Cold Compress. 🏃 Exercise. 🥗 High Fiber Diet. 💧stay Hydrate.",
     "Hyperthyroidism": "🧘 Stress Management. 🏃 Exercise. 🛏️ Rest.",
     "Hypoglycemia": "🍣 Protein Snacks. Limit Sugar. 🛏️ Sleep Well.",
     "Arthritis": "⚖️ Manage weight. 🪡 Acupuncture. 🥗 Healthy diet.",
     "Urinary tract infection": "😷 Hygiene. 🧂 Hydration. 🫚 Garlic intake.",
     "Psoriasis": "🧴 Prevent dryness. 🙇‍♂️ Reduce stress. 🥗 Eat balanced meals.",
-    "(vertigo) Paroymsal  Positional Vertigo": "💧Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
+    "(vertigo) Paroymsal  Positional Vertigo": "💧stay Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
     "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements.",
     "Primary Headache":"💧Stay Hydrated.🛏️Rest and Relaxation.🥦Dietary Considerations.🙇‍♂️ Reduce stress.",
     "Secondary Headache":"💊 Take prescribed pain reliviers.🌡️ Temperature Therapy(Cold Pack or Warm Compress).",
     "Cluster Headache":"🫁 Breathing Exercises.❄️ Cold Compress. Avoid Triggers.",
     "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods.",
-    "Menstruation pain":"🌡️ Heating Therapy.💧Stay Hydrated. 🥗 Healthy diet."
+    "Menstruation pain":"🥗 Healthy diet.🌡️Heat Therapy(hotpack).💧Stay Hydrated.🛏️Rest and Relaxation."
 }
 
 vectorizer = CountVectorizer(vocabulary=symptoms)
