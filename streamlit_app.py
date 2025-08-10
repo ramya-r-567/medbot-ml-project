@@ -8,7 +8,7 @@ from deep_translator import GoogleTranslator
 
 
 # Load model and symptoms
-model = joblib.load("medbot_model.pkl")
+model = joblib.load("final_medbot_model.pkl")
 symptoms = joblib.load("symptom_list.pkl")
 
 # CSS styling
@@ -107,7 +107,11 @@ solutions = {
     "Urinary tract infection": "😷 Hygiene. 🧂 Hydration. 🫚 Garlic intake.",
     "Psoriasis": "🧴 Prevent dryness. 🙇‍♂️ Reduce stress. 🥗 Eat balanced meals.",
     "(vertigo) Paroymsal  Positional Vertigo": "💧Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
-    "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements."
+    "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements.",
+    "Primary Headache":"💧Stay Hydrated.🛏️Rest and Relaxation.🥦Dietary Considerations.🙇‍♂️ Reduce stress.",
+    "Secondary Headache":"💊 Take prescribed pain reliviers.🌡️ Temperature Therapy(Cold Pack or Warm Compress).",
+    "Cluster Headache":"🫁 Breathing Exercises.❄️ Cold Compress. Avoid Triggers.",
+    "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods." 
 }
 
 vectorizer = CountVectorizer(vocabulary=symptoms)
