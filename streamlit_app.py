@@ -8,8 +8,8 @@ from deep_translator import GoogleTranslator
 
 
 # Load model and symptoms
-model = joblib.load("final_medbot_model.pkl")
-symptoms = joblib.load("final_symptom_list.pkl")
+model = joblib.load("medbot_model.pkl")
+symptoms = joblib.load("symptom_list.pkl")
 
 # CSS styling
 st.markdown("""
@@ -74,6 +74,19 @@ st.markdown("""
 <img src="https://img.icons8.com/ios-filled/100/dna.png" class="floating-icon">
 <img src="https://img.icons8.com/ios-filled/100/thermometer.png" class="floating-icon">
 """, unsafe_allow_html=True)
+import base64
+import joblib
+import numpy as np
+import re
+from sklearn.feature_extraction.text import CountVectorizer
+from deep_translator import GoogleTranslator
+
+
+# Load model and symptoms
+model = joblib.load("medbot_model.pkl")
+symptoms = joblib.load("symptom_list.pkl")
+
+
 
 # Dictionary mapping diseases to simple solutions
 solutions = {
@@ -93,9 +106,8 @@ solutions = {
     "Chronic cholestasis": "🧑‍⚕️ Consult Your Doctor. Check Your cholesterol & liver enzyme levels.",
     "Peptic ulcer diseae": "📉 Lower Your Stomach Acid Levels.🍴 Adjust Your Meal Plan.",
     "Gastroenteritis": "🧂 Drink Fluids More Often. 😷 Stay Hygienic.",
-    "Bronchial Asthma": "😷 Stay Hygienic and Avoid Dust.",
+    "Bronchial Asthma": "😷 Stay Hygiene and Avoid Dust.",
     "Cervical spondylosis": "🏃‍♂️ Exercise Regularly. 💆 Massage Your Neck. 🫚 Try Ginger for Relief.",
-    "Paralysis (brain hemorrhage)": "🚨 Medical Emergency. Seek Immediate Treatment.",
     "hepatitis A": "🛏️ Get lots of rest. 💊 Take pain relievers carefully.",
     "Hepatitis B": "Discuss treatment options with your doctor 🧑‍⚕️.",
     "Hepatitis C": "🥗 Eat a balanced diet. 🏃 Exercise. 🧪 Get tested.",
@@ -109,13 +121,8 @@ solutions = {
     "Arthritis": "⚖️ Manage weight. 🪡 Acupuncture. 🥗 Healthy diet.",
     "Urinary tract infection": "😷 Hygiene. 🧂 Hydration. 🫚 Garlic intake.",
     "Psoriasis": "🧴 Prevent dryness. 🙇‍♂️ Reduce stress. 🥗 Eat balanced meals.",
-    "(vertigo) Paroymsal  Positional Vertigo": "💧stay Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
-    "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements.",
-    "Primary Headache":"💧Stay Hydrated.🛏️Rest and Relaxation.🥦Dietary Considerations.🙇‍♂️ Reduce stress.",
-    "Secondary Headache":"💊 Take prescribed pain reliviers.🌡️ Temperature Therapy(Cold Pack or Warm Compress).",
-    "Cluster Headache":"🫁 Breathing Exercises.❄️ Cold Compress. Avoid Triggers.",
-    "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods.",
-    "Menstruation pain":"🥗 Healthy diet.🌡️Heat Therapy(hotpack).💧Stay Hydrated.🛏️Rest and Relaxation."
+    "(vertigo) Paroymsal  Positional Vertigo": "💧Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
+    "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements."
 }
 
 vectorizer = CountVectorizer(vocabulary=symptoms)
@@ -171,20 +178,45 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # User input box
-user_input = st.text_area("Describe your symptoms:", height=100)
+# Choose input method
+input_mode = st.radio("Choose input method:", ("Type symptoms", "Select from list"))
 
+if input_mode == "Type symptoms":
+    # Text area for typing symptoms
+    user_input = st.text_area(symptom_label, height=100)
 
-# Prediction
-if user_input.strip():
-    prediction = predict_disease(user_input, selected_lang)
-    st.subheader(predicted_disease_label)
-    st.success(translate(prediction, 'en', selected_lang))
+    if st.button("Predict from Text"):
+        if user_input.strip():
+            prediction = predict_disease(user_input, selected_lang)
+            st.subheader(predicted_disease_label)
+            st.success(translate(prediction, 'en', selected_lang))
+            
+            if prediction in solutions:
+                st.subheader(suggested_solution_label)
+                st.success(translate(solutions[prediction], 'en', selected_lang))
+            else:
+                st.warning(no_solution_text)
+        else:
+            st.info(empty_input_info)
 
-    if prediction in solutions:
-        st.subheader(suggested_solution_label)
-        st.success(translate(solutions[prediction], 'en', selected_lang))
-    else:
-        st.warning(no_solution_text)
-else:
-    st.info(empty_input_info)
+elif input_mode == "Select from list":
+    # Dropdown for selecting symptoms
+    selected_symptoms = st.multiselect("Select your symptoms", symptoms)
+
+    if st.button("Predict from Selection"):
+        if selected_symptoms:
+            # Convert to binary vector
+            features = [1 if s in selected_symptoms else 0 for s in symptoms]
+            prediction = model.predict(np.array(features).reshape(1, -1))[0]
+            
+            st.subheader(predicted_disease_label)
+            st.success(translate(prediction, 'en', selected_lang))
+            
+            if prediction in solutions:
+                st.subheader(suggested_solution_label)
+                st.success(translate(solutions[prediction], 'en', selected_lang))
+            else:
+                st.warning(no_solution_text)
+        else:
+            st.info(translate("📝 Please select at least one symptom.", "en", selected_lang))
 

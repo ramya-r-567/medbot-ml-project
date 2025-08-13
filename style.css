@@ -1,68 +1,73 @@
-/* Set entire background gradient */
-html, body, .stApp {
-    background: linear-gradient(to right, #cceeff, #e0f7ff) !important;
+body {
+    background-color: #cce5ff;
+    background-image: none;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
 }
 
-/* Floating icons */
+.stApp {
+    background: transparent;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 .floating-icon {
     position: fixed;
-    width: 100px;
-    opacity: 0.05;
-    z-index: 0;
-    animation: float 6s ease-in-out infinite;
+    width: 50px;
+    height: 50px;
+    opacity: 0.1;
+    z-index: -1;
 }
+
 .floating-icon:nth-child(1) { top: 10%; left: 5%; }
-.floating-icon:nth-child(2) { top: 30%; right: 5%; }
-.floating-icon:nth-child(3) { bottom: 10%; left: 40%; }
+.floating-icon:nth-child(2) { top: 30%; right: 10%; }
+.floating-icon:nth-child(3) { bottom: 20%; left: 15%; }
+.floating-icon:nth-child(4) { bottom: 10%; right: 5%; }
+.floating-icon:nth-child(5) { top: 50%; left: 50%; }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+.background-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
 }
 
-/* Glassmorphism cards */
+.background-icons img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    opacity: 0.06;
+    filter: blur(1px);
+}
+
+.background-icons img:nth-child(1) { top: 10%; left: 5%; }
+.background-icons img:nth-child(2) { top: 30%; right: 10%; }
+.background-icons img:nth-child(3) { bottom: 20%; left: 15%; }
+.background-icons img:nth-child(4) { bottom: 10%; right: 5%; }
+.background-icons img:nth-child(5) { top: 50%; left: 50%; }
+.background-icons img:nth-child(6) { top: 40%; left: 80%; }
+.background-icons img:nth-child(7) { bottom: 40%; right: 30%; }
+.background-icons img:nth-child(8) { top: 20%; right: 40%; }
+
 .glass-box {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 16px;
-    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    margin-bottom: 1.5rem;
-}
-
-/* Title Styling */
-.title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #004d66;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-/* Remove extra space above and below input box */
-textarea {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* This makes all input sections tighter */
-.css-1y4p8pa {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    margin: 0px !important;
-}
-/* Reduce space below success box */
-.css-ffhzg2 {
-    margin-bottom: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    margin-top: 20px;
+    color: #ffffff;
 }
