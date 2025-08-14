@@ -1,8 +1,6 @@
-# CSS styling
-st.markdown("""
-<style>
+/* ===== Background & Fonts ===== */
 body {
-    background-color: #cce5ff;  /* Light blue solid background */
+    background-color: #cce5ff;
     background-image: none;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -16,6 +14,7 @@ body {
     background: transparent;
 }
 
+/* ===== Headings ===== */
 h1 {
     text-align: center;
     color: #ffffff;
@@ -23,20 +22,7 @@ h1 {
     padding-top: 10px;
 }
 
-.floating-icon {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    opacity: 0.1;
-    z-index: -1;
-}
-
-.floating-icon:nth-child(1) { top: 10%; left: 5%; }
-.floating-icon:nth-child(2) { top: 30%; right: 10%; }
-.floating-icon:nth-child(3) { bottom: 20%; left: 15%; }
-.floating-icon:nth-child(4) { bottom: 10%; right: 5%; }
-.floating-icon:nth-child(5) { top: 50%; left: 50%; }
-
+/* ===== Glassmorphism Card ===== */
 .glass-box {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 20px;
@@ -47,6 +33,38 @@ h1 {
     margin-top: 20px;
     color: #ffffff;
 }
-</style>
-""", unsafe_allow_html=True)
 
+/* ===== Floating Icons ===== */
+.background-icons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1; /* keep behind content */
+}
+
+.background-icons img {
+    position: absolute;
+    width: 50px;   /* smaller width */
+    height: 60px;  /* smaller height */
+    opacity: 0.1;
+    animation: float 15s infinite ease-in-out;
+}
+
+
+.background-icons img:nth-child(1) { top: 10%; left: 5%; }
+.background-icons img:nth-child(2) { top: 20%; right: 10%; }
+.background-icons img:nth-child(3) { bottom: 15%; left: 15%; }
+.background-icons img:nth-child(4) { bottom: 20%; right: 5%; }
+.background-icons img:nth-child(5) { top: 50%; left: 50%; }
+.background-icons img:nth-child(6) { top: 60%; right: 30%; }
+.background-icons img:nth-child(7) { bottom: 40%; left: 40%; }
+.background-icons img:nth-child(8) { top: 35%; right: 50%; }
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
