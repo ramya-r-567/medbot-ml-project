@@ -1,16 +1,21 @@
 import streamlit as st
-import base64
-import joblib
-import numpy as np
-import re
-from sklearn.feature_extraction.text import CountVectorizer
-from deep_translator import GoogleTranslator
+# Load external CSS
+with open("style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-
-# Load model and symptoms
-model = joblib.load("medbot_model.pkl")
-symptoms = joblib.load("symptom_list.pkl")
-
+# Add floating blurred medical icons to background
+st.markdown("""
+<div class="background-icons">
+  <img src="https://img.icons8.com/ios-filled/100/heart-with-pulse.png">
+  <img src="https://img.icons8.com/ios-filled/100/stethoscope.png">
+  <img src="https://img.icons8.com/ios-filled/100/pill.png">
+  <img src="https://img.icons8.com/ios-filled/100/medical-doctor.png">
+  <img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png">
+  <img src="https://img.icons8.com/ios-filled/100/syringe.png">
+  <img src="https://img.icons8.com/ios-filled/100/dna.png">
+  <img src="https://img.icons8.com/ios-filled/100/thermometer.png">
+</div>
+""", unsafe_allow_html=True)
 
 import base64
 import joblib
@@ -56,10 +61,16 @@ solutions = {
     "Dimorphic hemmorhoids(piles)": "❄️ Cold Compress. 🏃 Exercise. 🥗 High Fiber Diet. 💧stay Hydrate.",
     "Hyperthyroidism": "🧘 Stress Management. 🏃 Exercise. 🛏️ Rest.",
     "Hypoglycemia": "🍣 Protein Snacks. Limit Sugar. 🛏️ Sleep Well.",
-    "Arthritis": "⚖️ Manage weight. 🪡 Acupuncture. 🥗 Healthy diet.",
+    "Arthritis (common joint pain)": "⚖️ Manage weight. 🪡 Acupuncture. 🥗 Healthy diet.",
     "Urinary tract infection": "😷 Hygiene. 🧂 Hydration. 🫚 Garlic intake.",
     "Psoriasis": "🧴 Prevent dryness. 🙇‍♂️ Reduce stress. 🥗 Eat balanced meals.",
     "(vertigo) Paroymsal  Positional Vertigo": "💧Hydrate. 🙇‍♀️ Stress control. ☀️ Vitamin D.",
+    "Wear and Tear(kind of joint diseases)":"🌡️Hot and Cold Therapy.🏃‍♂️Gentle Exercise.⚖️ Manage weight.",
+    "Primary Headache":"💧Stay Hydrated.🛏️Rest and Relaxation.🥦Dietary Considerations.🙇‍♂️ Reduce stress.",
+    "Secondary Headache":"💊 Take prescribed pain reliviers.🌡️ Temperature Therapy(Cold Pack or Warm Compress).",
+    "Cluster Headache":"🫁 Breathing Exercises.❄️ Cold Compress. Avoid Triggers.",
+    "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods.",
+    "Bacterial Skin Infection":"🫧Clean the sores gently.Keep sores covered.😷 Stay Hygiene.",
     "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements."
 }
 
