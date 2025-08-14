@@ -11,69 +11,7 @@ from deep_translator import GoogleTranslator
 model = joblib.load("medbot_model.pkl")
 symptoms = joblib.load("symptom_list.pkl")
 
-# CSS styling
-st.markdown("""
-<style>
-body {
-    background-color: #cce5ff;  /* Light blue solid background */
-    background-image: none;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
-.stApp {
-    background: transparent;
-}
-
-h1 {
-    text-align: center;
-    color: #ffffff;
-    font-weight: bold;
-    padding-top: 10px;
-}
-
-.floating-icon {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    opacity: 0.1;
-    z-index: -1;
-}
-
-.floating-icon:nth-child(1) { top: 10%; left: 5%; }
-.floating-icon:nth-child(2) { top: 30%; right: 10%; }
-.floating-icon:nth-child(3) { bottom: 20%; left: 15%; }
-.floating-icon:nth-child(4) { bottom: 10%; right: 5%; }
-.floating-icon:nth-child(5) { top: 50%; left: 50%; }
-
-.glass-box {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 20px;
-    margin-top: 20px;
-    color: #ffffff;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Floating icons
-st.markdown("""
-<img src="https://img.icons8.com/ios-filled/100/heart-with-pulse.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/stethoscope.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/pill.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/medical-doctor.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/first-aid-kit.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/syringe.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/dna.png" class="floating-icon">
-<img src="https://img.icons8.com/ios-filled/100/thermometer.png" class="floating-icon">
-""", unsafe_allow_html=True)
 import base64
 import joblib
 import numpy as np
