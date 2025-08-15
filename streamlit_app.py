@@ -25,7 +25,7 @@ from deep_translator import GoogleTranslator
 
 # Load model and symptoms
 model = joblib.load("last_medbot_model.pkl")
-symptoms = joblib.load("last_symptom_model.pkl")
+symptoms = joblib.load("last_symptom_list.pkl")
 
 # Dictionary mapping diseases to simple solutions
 solutions = {
