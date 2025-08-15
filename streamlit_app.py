@@ -24,8 +24,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from deep_translator import GoogleTranslator
 
 # Load model and symptoms
-model = joblib.load("last_medbot_model.pkl")
-symptoms = joblib.load("last_symptom_list.pkl")
+model = joblib.load("last_medbot_model(1).pkl")
+symptoms = joblib.load("last_symptom_list(1).pkl")
 
 # Dictionary mapping diseases to simple solutions
 solutions = {
