@@ -68,7 +68,7 @@ solutions = {
     "Dehydration":"🧂Drink More Water.🥤Avoid Dehydrating Beverages. Eat Water-Rich Foods.",
     "Bacterial Skin Infection":"🫧Clean the sores gently.Keep sores covered.😷 Stay Hygiene.",
     "Menstruation pain":"🌡️Heat Therapy.🌿Herbal Teas and Supplements.💧Stay Hydrated.",
-    "GRED(chronic digestive condition )":"🥦 Dietary and Eating Habit Changes.🧘 Stress Management.💪Maintain a Healthy Weight.",
+    "GERD(chronic digestive condition )":"🥦 Dietary and Eating Habit Changes.🧘 Stress Management.💪Maintain a Healthy Weight.",
     "Acne": "🍎 Apple cider vinegar. 🔩 Zinc supplements."
 }
 
